@@ -23,7 +23,7 @@ export default function Home() {
       >
         <div className="bg-primary text-white opacity-95 rounded shadow bg-gradient-to-tr from-slate-50 to-emerald-100 ">
           <h1 className="text-5xl font-bold mb-2 pt-10">
-            Welcome to BITA Data Analytics{" "}
+            Welcome to BITA Data Analytic
             <BsClipboardData className="inline" />
           </h1>
           <p className=" text-lg mb-8 px-8 py-7 font-light">
