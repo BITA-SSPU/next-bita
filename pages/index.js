@@ -1,14 +1,16 @@
 import { Button, Label, Textarea, TextInput, Footer } from "flowbite-react";
 import Link from "next/link";
+
+// ICONS
 import {
   BsClipboardData,
   BsFillArrowUpRightSquareFill,
   BsPatchQuestionFill,
 } from "react-icons/bs";
-
 import { RiNumbersLine } from "react-icons/ri";
-
 import { TbNumbers } from "react-icons/tb";
+
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
@@ -21,9 +23,13 @@ export default function Home() {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-primary text-white opacity-95 rounded shadow bg-gradient-to-tr from-slate-50 to-emerald-100 ">
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.9 }}
+        className="bg-primary text-white opacity-95 rounded shadow bg-gradient-to-tr from-slate-50 to-emerald-100 ">
           <h1 className="text-5xl font-bold mb-2 pt-10">
-            Welcome to BITA Data Analytic
+            Welcome to BITA Data Analytics
             <BsClipboardData className="inline" />
           </h1>
           <p className=" text-lg mb-8 px-8 py-7 font-light">
@@ -32,23 +38,29 @@ export default function Home() {
             voluptates maxime ab quisquam repellendus nulla. Nam quae pariatur
             dolores, molestiae sit voluptas?
           </p>
-          <div className="space-x-2">
-            <Link
-              href="/learnmore"
-              className="py-3 px-8 bg-gray-300 hover:bg-gray-200 text-gray-800 hover:text-gray-900 rounded-lg hover:shadow-xl transition duration-300"
-            >
-              Learn More <BsFillArrowUpRightSquareFill className="inline" />
-            </Link>
-            <Link
-              href="/signup"
-              className="py-3 px-8 bg-yellow-200 hover:bg-yellow-100 text-yellow-900 rounded-lg hover:shadow-xl transition duration-300"
-            >
-              Sign Up Now
-            </Link>
+          <div className="space-x-4">
+            <motion.button whileHover={{scale: 1.09}}>
+              <Link
+                href="/learnmore"
+                className="py-3 px-8 bg-gray-300 hover:bg-gray-200 text-gray-800 hover:text-gray-900 rounded-lg hover:shadow-xl transition duration-300"
+              >
+                Learn More <BsFillArrowUpRightSquareFill className="inline" />
+              </Link>
+            </motion.button>
+            <motion.button whileHover={{scale: 1.1}}>
+              <Link
+                href="/signup"
+                className="py-3 px-8 bg-yellow-200 hover:bg-yellow-100 text-yellow-900 rounded-lg hover:shadow-xl transition duration-300"
+              >
+                Sign Up Now
+              </Link>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </section>
-      <div
+      <motion.div
+      whileInView={{scale: 1.1}}
+      transition={{duration: 2}}
         id="why-bita"
         className="pt-32 text-white pb-32 bg-gradient-to-r from-primary to-teal-400 min-h-screen m-auto "
       >
@@ -89,11 +101,11 @@ export default function Home() {
             alt=""
           />
         </div>
-      </div>
+      </motion.div>
 
       {/* CONTACT FORM */}
       <div className="bg-gradient-to-bl from-secondary to-green-400 h-full py-32">
-        <footer
+        <div
           id="contact-us"
           className="flex flex-col gap-4 max-w-[800px] mx-auto  text-white bg-primary rounded-lg p-9 shadow-md"
         >
@@ -123,7 +135,7 @@ export default function Home() {
               />
             </div>
           </form>
-        </footer>
+        </div>
       </div>
       {/* FOOTER */}
     </>
