@@ -1,7 +1,10 @@
 import { fi } from "faker/lib/locales";
 import React from "react";
 import { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGithub,
+} from "react-firebase-hooks/auth";
 import firebase from "../../firebase/config";
 import { motion } from "framer-motion";
 
@@ -42,14 +45,15 @@ function Signup() {
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+
+  const [signInWithGithub, userGithub, loadingGithub, errorGithub] =
+    useSignInWithGithub(auth);
+
   return (
     <>
       <form className="w-[800px] mx-auto mt-24 h-screen">
-        <h1 className="text-6xl text-center mb-4">Sign Up</h1>
-        <div className="relative z-0 w-full mb-6 group">
-          {user && <p>Registered User: {user.user.email}</p>}
-          {error && <p>Error: {error.message}</p>}
-          {loading && <p>Loading...</p>}
+        <h1 className="text-6xl text-center mb-8">Sign Up</h1>
+        <div className="grid grid-cols-2">
           <button
             class="relative inline-flex items-center justify-center p-0.5 mb-20 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 mx-auto"
             onClick={(e) => {
@@ -60,6 +64,20 @@ function Signup() {
               Login With Google
             </span>
           </button>
+          <button
+            class="relative w-fit h-fit inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+            onClick={() => signInWithGithub()}
+          >
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              Login with github
+            </span>
+          </button>
+        </div>
+
+        <div className="relative z-0 w-full mb-6 group">
+          {user && <p>Registered User: {user.user.email}</p>}
+          {error && <p>Error: {error.message}</p>}
+          {loading && <p>Loading...</p>}
 
           <input
             value={email}
