@@ -13,6 +13,9 @@ import { TbNumbers } from "react-icons/tb";
 import { motion } from "framer-motion";
 
 export default function Home() {
+
+
+
   return (
     <>
       <section
@@ -102,7 +105,6 @@ export default function Home() {
           />
         </div>
       </motion.div>
-
       {/* CONTACT FORM */}
       <div className="bg-gradient-to-bl from-secondary to-green-400 h-full py-32">
         <div
