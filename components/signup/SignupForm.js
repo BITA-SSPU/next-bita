@@ -2,6 +2,7 @@ import { fi } from "faker/lib/locales";
 import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGithub,
@@ -12,7 +13,7 @@ import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 
 const projectfirestore = firebase.firestore();
 
-function Signup() {
+function SignupForm() {
   const provider = new GoogleAuthProvider();
   const auth = firebase.auth();
   const router = useRouter();
@@ -25,6 +26,7 @@ function Signup() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        useStoreActions((actions) => actions.yesLogged());
         // ...
       })
       .catch((error) => {
@@ -62,17 +64,32 @@ function Signup() {
       })
       .then((res) => {
         console.log(res);
-        setTimeout(() => {
-          router.push("/analytics");
-        }, 1000);
+        useStoreActions((actions) => actions.yesLogged());
+
+        router.push("/welcome");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const [signInWithGithub, userGithub, loadingGithub, errorGithub] =
-    useSignInWithGithub(auth);
+  const handleGithubSignUp = () => {
+    const [signInWithGithub, userGithub, loadingGithub, errorGithub] =
+      useSignInWithGithub(auth);
+    if (userGithub) {
+      useStoreActions((actions) => actions.yesLogged());
+    }
+  };
+
+  function redirectLogged() {
+    const logged = useStoreState((state) => state.isLogged);
+    if (logged) {
+      router.push("/analytics");
+      console.log(logged);
+    } else {
+      console.log("Could not go due to some error");
+    }
+  }
 
   return (
     <>
@@ -285,4 +302,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignupForm;

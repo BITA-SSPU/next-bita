@@ -1,12 +1,10 @@
-import SignupForm from "../components/SignupForm";
-import SignupMulti from "../components/signup/Signup";
+import SignupForm from "../components/signup/SignupForm";
 
 export default function Signup() {
-
   return (
     <>
-  {/* <SignupForm /> */}
-    <SignupMulti/>
+      {/* <SignupForm /> */}
+      <SignupForm />
     </>
   );
 }
