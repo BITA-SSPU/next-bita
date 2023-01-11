@@ -1,30 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { AgGridReact } from 'ag-grid-react';
-import faker from 'faker'
+import { AgGridReact } from "ag-grid-react";
 
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
-export default function App () {
-  const [rowData] = useState([
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-    { Date: faker.date.weekday(), Type: faker.finance.transactionType(), Entry: faker.datatype.number() },
-  ]);
+export default function DataGrid({ file }) {
+  const rowData = useState(file);
+  console.log(file);
 
   const [columnDefs] = useState([
-    { field: 'Date' },
-    { field: 'Type' },
-    { field: 'Entry' },
-    { field: 'LF' },
+    {
+      field: "Data",
+    },
   ]);
 
   return (
@@ -32,6 +20,4 @@ export default function App () {
       <AgGridReact rowData={rowData} columnDefs={columnDefs}></AgGridReact>
     </div>
   );
-};
-
-
+}

@@ -1,17 +1,21 @@
-import MyChart from "../../components/charts/MyBarChart";
-import { AgGridReact } from "ag-grid-react";
 import { useState, useEffect } from "react";
-import faker from "faker";
 import { useRouter } from "next/router";
 import { useStoreState } from "easy-peasy";
+import faker from "faker";
 
+import { Button } from "flowbite-react";
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
+import { AgGridReact } from "ag-grid-react";
 
 import MyLineChart from "../../components/charts/MyLineChart";
 import MyBubbleChart from "../../components/charts/MyBubbleChart";
 import MyRadarChart from "../../components/charts/MyRadarChart";
 import DataGrid from "../../components/DataGrid";
+import MyChart from "../../components/charts/MyBarChart";
+
+import Papa from "papaparse";
+
 
 export default function Analytics() {
   const router = useRouter();
@@ -42,11 +46,42 @@ export default function Analytics() {
     { field: "Clothes" },
   ]);
 
+  const [file, setFile] = useState([]);
+
   let data = null;
+
+  const handleFileSubmit = (file) => {};
+
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      console.log(file);
+      Papa.parse(e.target.files[0], {
+        header: true,
+        complete: function (results) {
+          console.log(results);
+          const parsedResults = JSON.stringify(results.data);
+          setFile(parsedResults);
+        },
+      });
+    }
+  };
+
+  const handleUploadClick = () => {
+    if (!file) {
+      return;
+    }
+  };
 
   return (
     <>
       {/* <SideBar /> */}
+      <p className="text-3xl text-center">Enter Data for analysis</p>
+
+      <div className="flex flex-col mx-auto max-w-[600px]">
+        <input type="file" onChange={handleFileChange} />
+        <Button onClick={handleUploadClick}>Upload</Button>
+      </div>
+
       <p className="text-4xl bg-indigo-400 p-7 text-white rounded-lg mx-10">
         Analytics
       </p>
@@ -117,7 +152,8 @@ export default function Analytics() {
           Data Entries
         </p>
         <div className="mx-auto mt-8">
-          <DataGrid />
+          {/* <DataGrid file={file} /> */}
+          <DataTable file={file} />
         </div>
       </div>
     </>
