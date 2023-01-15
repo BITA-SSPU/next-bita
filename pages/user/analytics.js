@@ -17,7 +17,7 @@ import MyChart from "../../components/charts/MyBarChart";
 import Papa from "papaparse";
 
 
-export default function Analytics() {
+export default function Analytics()  {
   const router = useRouter();
   const isLoggedIn = useStoreState((state) => state.isLoggedIn);
 
@@ -51,7 +51,7 @@ export default function Analytics() {
   let data = null;
 
   const handleFileSubmit = (file) => {};
-
+}
   const handleFileChange = (e) => {
     if (e.target.files) {
       console.log(file);
@@ -158,4 +158,3 @@ export default function Analytics() {
       </div>
     </>
   );
-}
